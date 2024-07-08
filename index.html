@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleLang Interpreter</title>
+</head>
+<body>
+    <h1>SimpleLang Interpreter</h1>
+    <form id="codeForm">
+        <textarea id="codeInput" rows="10" cols="50"></textarea><br>
+        <button type="button" onclick="executeCode()">Execute</button>
+    </form>
+    <h2>Output:</h2>
+    <pre id="output"></pre>
+
+    <script>
+        async function executeCode() {
+            const code = document.getElementById('codeInput').value;
+            const response = await fetch('/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code }),
+            });
+            const result = await response.json();
+            document.getElementById('output').innerText = result.output;
+        }
+    </script>
+</body>
+</html>
+
